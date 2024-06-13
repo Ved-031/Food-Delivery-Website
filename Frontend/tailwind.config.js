@@ -7,5 +7,18 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.no-scrollbar': {
+          /* For Firefox */
+          'scrollbar-width': 'none',
+          /* For Chrome, Edge, and Safari */
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+        },
+      });
+    },
+  ],
 }
