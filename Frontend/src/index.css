@@ -10,6 +10,6 @@ body{
     font-family: "Poppins", sans-serif;
 }
 
-.active{
+.activeNavItem{
     border: 4px solid orangered;
 }
