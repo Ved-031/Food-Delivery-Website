@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import { assets } from '../../assets/assets'
 import { NavLink } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({setShowLogin}) => {
 
   const [isMenu, setIsMenu] = useState(false);
+  const close = ()=>{
+    setShowLogin(true)
+    setIsMenu(prev=>!prev)
+  }
 
   return (
     <div className='relative'>
@@ -32,7 +36,7 @@ const Navbar = () => {
           <NavLink to={"/cart"}>
             <img src={assets.basket_icon} alt="" className='w-5 cursor-pointer lg:w-6'/>
           </NavLink>
-          <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-3 py-2 rounded-lg font-medium cursor-pointer'>SignIn</button>
+          <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-3 py-2 rounded-lg font-medium cursor-pointer' onClick={()=>setShowLogin(true)}>SignIn</button>
         </div>
 
         <i className="fa-solid fa-bars md:hidden text-[18px] cursor-pointer" onClick={()=>setIsMenu(prev=>!prev)}></i>
@@ -69,7 +73,7 @@ const Navbar = () => {
                 </NavLink>
               </div>
             </ul>
-            <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-4 py-2 mt-5 rounded-lg font-medium cursor-pointer ml-3'>SignIn</button>
+            <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-4 py-2 mt-5 rounded-lg font-medium cursor-pointer ml-3' onClick={()=>close()}>SignIn</button>
           </div>
         </div>
 
