@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../../assets/assets'
 import { NavLink } from 'react-router-dom';
+import { StoreContext } from '../../context/StoreContext';
 
 const Navbar = ({setShowLogin}) => {
 
+  const { cartTotal } = useContext(StoreContext)
   const [isMenu, setIsMenu] = useState(false);
   const close = ()=>{
     setShowLogin(true)
@@ -33,8 +35,13 @@ const Navbar = ({setShowLogin}) => {
         </div>
 
         <div className='hidden md:flex items-center gap-8 lg:gap-12'>
-          <NavLink to={"/cart"}>
+          <NavLink to={"/cart"} className="relative">
             <img src={assets.basket_icon} alt="" className='w-5 cursor-pointer lg:w-6'/>
+            {cartTotal() > 0 ? 
+              <div className='h-2 w-2 bg-orange-500 rounded-full absolute top-[-3px] right-[-6px]'></div>
+              :
+              <></>
+            }
           </NavLink>
           <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-3 py-2 rounded-lg font-medium cursor-pointer' onClick={()=>setShowLogin(true)}>SignIn</button>
         </div>
