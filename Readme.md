@@ -10,7 +10,7 @@ This is a fully functional food delivery website built with modern web technolog
 - Choice from diverse food menu
 - Add food items to the cart
 - Checkout and place orders
-- Responsive design for mobile and desktop
+- Responsive design for mobile and desktop.
 - **Admin Panel**: Admins can manage the menu by adding or removing food items.
 
 ## Technologies Used
