@@ -9,3 +9,8 @@ body{
   background-color: #fcfcfc;
   font-family: "Outfit", sans-serif;
 }
+
+.sidebar-options .active{
+    background-color: #fff0ed;
+    border-color: rgb(249, 115, 22);
+}
