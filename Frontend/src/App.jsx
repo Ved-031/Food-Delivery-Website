@@ -5,6 +5,8 @@ import Home from './pages/Home/Home'
 import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/placeorder/PlaceOrder'
 import LoginPopup from './components/LoginPopup/LoginPopup'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 
@@ -12,6 +14,7 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer/>
       {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
       <Navbar setShowLogin={setShowLogin}/>
       <Routes>

@@ -1,15 +1,25 @@
 import React, { useContext, useState } from 'react'
 import { assets } from '../../assets/assets'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
 
 const Navbar = ({setShowLogin}) => {
 
-  const { cartTotal } = useContext(StoreContext)
+  const navigate = useNavigate();
+  const { cartTotal, token, setToken } = useContext(StoreContext)
   const [isMenu, setIsMenu] = useState(false);
+  const [isProfile, setIsProfile] = useState(false);
+
+  const logout = ()=>{
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+    setIsMenu(false);
+  }
+
   const close = ()=>{
-    setShowLogin(true)
-    setIsMenu(prev=>!prev)
+    setShowLogin(true);
+    setIsMenu(prev=>!prev);
   }
 
   return (
@@ -35,7 +45,7 @@ const Navbar = ({setShowLogin}) => {
         </div>
 
         <div className='hidden md:flex items-center gap-8 lg:gap-12'>
-          <NavLink to={"/cart"} className="relative">
+          <NavLink to={"/cart"} className={`relative`}>
             <img src={assets.basket_icon} alt="" className='w-5 cursor-pointer lg:w-6'/>
             {cartTotal() > 0 ? 
               <div className='h-2 w-2 bg-orange-500 rounded-full absolute top-[-3px] right-[-6px]'></div>
@@ -43,7 +53,23 @@ const Navbar = ({setShowLogin}) => {
               <></>
             }
           </NavLink>
-          <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-3 py-2 rounded-lg font-medium cursor-pointer' onClick={()=>setShowLogin(true)}>SignIn</button>
+          {token ? 
+            <div className='relative'>
+              <img src={assets.profile_icon} alt='profile' className='w-5 cursor-pointer' onClick={()=>setIsProfile(prev=>!prev)}/> 
+              <ul className={`${isProfile?"absolute":"hidden"} right-0 top-[30px] z-10 flex flex-col gap-2 bg-[#fff2ef] py-3 pl-3 pr-8 rounded-lg border border-orange-500 outline-2 outline-white`}>
+                <li className='flex items-center gap-2 cursor-pointer'>
+                  <img src={assets.bag_icon} alt="" className='w-5'/>
+                  <p className='hover:text-orange-500'>Orders</p>
+                </li>
+                <hr />
+                <li onClick={logout} className='flex items-center gap-2 cursor-pointer'>
+                  <img src={assets.logout_icon} alt="" className='w-5'/>
+                  <p className='hover:text-orange-500'>Logout</p>
+                </li>
+              </ul>
+            </div>
+            : 
+            <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-3 py-2 rounded-lg font-medium cursor-pointer' onClick={()=>setShowLogin(true)}>SignIn</button>}
         </div>
 
         <i className="fa-solid fa-bars md:hidden text-[18px] cursor-pointer" onClick={()=>setIsMenu(prev=>!prev)}></i>
@@ -80,7 +106,11 @@ const Navbar = ({setShowLogin}) => {
                 </NavLink>
               </div>
             </ul>
-            <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-4 py-2 mt-5 rounded-lg font-medium cursor-pointer ml-3' onClick={()=>close()}>SignIn</button>
+            {token ? 
+              <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-4 py-2 mt-5 rounded-lg font-medium cursor-pointer ml-3' onClick={()=>logout()}>Logout</button>
+              :
+              <button className='bg-orange-500 hover:bg-orange-600 hover:shadow-md text-white px-4 py-2 mt-5 rounded-lg font-medium cursor-pointer ml-3' onClick={()=>close()}>SignIn</button>
+            }
           </div>
         </div>
 
