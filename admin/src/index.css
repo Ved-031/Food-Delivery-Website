@@ -14,3 +14,8 @@ body{
     background-color: #fff0ed;
     border-color: rgb(249, 115, 22);
 }
+
+.list-table-format{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 0.5fr;
+}
